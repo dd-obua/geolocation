@@ -25,6 +25,7 @@ navigator.geolocation &&
           '&copy; <a href="https://www.openstreetmap.fr/hot/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
+      // Handle click events on the map
       map.on('click', (event) => {
         mapEvent = event;
         form.classList.remove('hidden');
@@ -36,6 +37,7 @@ navigator.geolocation &&
     }
   );
 
+// Display markers
 form.addEventListener('submit', (event) => {
   event.preventDefault();
   const { lat, lng } = mapEvent.latlng;
