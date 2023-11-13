@@ -55,4 +55,7 @@ form.addEventListener('submit', (event) => {
     .openPopup();
 
   inputDistance.value = '';
+  inputDuration.value = '';
+  inputCadence.value = '';
+  inputElevation.value = '';
 });
