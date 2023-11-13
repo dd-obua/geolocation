@@ -54,9 +54,9 @@ form.addEventListener('submit', (event) => {
     .setPopupContent('Workout')
     .openPopup();
 
-  inputDistance.value =
-    inputDuration.value =
-    inputCadence.value =
-    inputElevation.value =
-      '';
+  // Clear input fields
+  inputDistance.value = '';
+  inputDuration.value = '';
+  inputCadence.value = '';
+  inputElevation.value = '';
 });
