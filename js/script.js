@@ -25,6 +25,7 @@ navigator.geolocation &&
 
       map.on('click', (event) => {
         form.classList.remove('hidden');
+        inputDistance.focus();
       });
 
       // map.on('click', (mapEvent) => {
