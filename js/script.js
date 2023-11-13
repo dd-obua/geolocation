@@ -23,7 +23,9 @@ navigator.geolocation &&
           '&copy; <a href="https://www.openstreetmap.fr/hot/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
-      map.on('click', (event) => {});
+      map.on('click', (event) => {
+        form.classList.remove('hidden');
+      });
 
       // map.on('click', (mapEvent) => {
       //   const { lat, lng } = mapEvent.latlng;
