@@ -11,9 +11,10 @@ const inputDuration = select('.form__input--duration');
 const inputCadence = select('.form__input--cadence');
 const inputElevation = select('.form__input--elevation');
 
-let map, mapEvent;
-
 class App {
+  #map;
+  #mapEvent;
+
   constructor() {
     this._getPosition();
   }
@@ -28,7 +29,7 @@ class App {
   _loadMap(position) {
     const { latitude, longitude } = position.coords;
 
-    map = L.map('map').setView([latitude, longitude], 13);
+    this.#map = L.map('map').setView([latitude, longitude], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution:
@@ -40,8 +41,8 @@ class App {
   }
 
   _showForm() {
-    map.on('click', (event) => {
-      mapEvent = event;
+    this.#map.on('click', (event) => {
+      this.#mapEvent = event;
       form.classList.remove('hidden');
       inputDistance.focus();
     });
