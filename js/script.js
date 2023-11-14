@@ -39,15 +39,13 @@ class App {
     }).addTo(this.#map);
 
     // Handle click events on the map
-    this._showForm();
+    this.#map.on('click', this._showForm.bind(this));
   }
 
-  _showForm() {
-    this.#map.on('click', (event) => {
-      this.#mapEvent = event;
-      form.classList.remove('hidden');
-      inputDistance.focus();
-    });
+  _showForm(event) {
+    this.#mapEvent = event;
+    form.classList.remove('hidden');
+    inputDistance.focus();
   }
 
   _toggleElevationField() {
@@ -58,7 +56,6 @@ class App {
         .classList.toggle('form__row--hidden');
       inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
     });
-    console.log(this.#mapEvent);
   }
 
   _createNewWorkout(event) {
