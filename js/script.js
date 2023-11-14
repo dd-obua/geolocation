@@ -18,7 +18,7 @@ class App {
   constructor() {
     this._getPosition();
     this._toggleElevationField();
-    this._createNewWorkout();
+    form.addEventListener('submit', this._createNewWorkout.bind(this));
   }
 
   _getPosition() {
@@ -31,7 +31,6 @@ class App {
   _loadMap(position) {
     const { latitude, longitude } = position.coords;
 
-    console.log(this);
     this.#map = L.map('map').setView([latitude, longitude], 13);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -59,34 +58,34 @@ class App {
         .classList.toggle('form__row--hidden');
       inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
     });
+    console.log(this.#mapEvent);
   }
 
-  _createNewWorkout() {
+  _createNewWorkout(event) {
+    event.preventDefault();
+
     // Display markers
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const { lat, lng } = this.#mapEvent.latlng;
+    const { lat, lng } = this.#mapEvent.latlng;
 
-      L.marker([lat, lng])
-        .addTo(this.#map)
-        .bindPopup(
-          L.popup({
-            maxWidth: 250,
-            minWidth: 100,
-            autoClose: false,
-            closeOnClick: false,
-            className: 'running-popup',
-          })
-        )
-        .setPopupContent('Workout')
-        .openPopup();
+    L.marker([lat, lng])
+      .addTo(this.#map)
+      .bindPopup(
+        L.popup({
+          maxWidth: 250,
+          minWidth: 100,
+          autoClose: false,
+          closeOnClick: false,
+          className: 'running-popup',
+        })
+      )
+      .setPopupContent('Workout')
+      .openPopup();
 
-      // Clear input fields
-      inputDistance.value = '';
-      inputDuration.value = '';
-      inputCadence.value = '';
-      inputElevation.value = '';
-    });
+    // Clear input fields
+    inputDistance.value = '';
+    inputDuration.value = '';
+    inputCadence.value = '';
+    inputElevation.value = '';
   }
 }
 
