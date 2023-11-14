@@ -13,12 +13,39 @@ const inputElevation = select('.form__input--elevation');
 
 class Workout {
   date = new Date();
-  id = (date.getTime() + '').slice(-10);
+  id = (Math.trunc(Math.random() * 10000000000) + '').slice(-10);
 
   constructor(coords, distance, duration) {
-    this.coords = coords;
+    this.coords = coords; // [lat, lng]
     this.distance = distance; // in km
     this.duration = duration; // in min
+  }
+}
+
+class Run extends Workout {
+  constructor(coords, distance, duration, cadence) {
+    super(coords, distance, duration);
+    this.cadence = cadence;
+    this.calcPace();
+  }
+
+  calcPace() {
+    // min/km
+    this.pace = this.duration / 60 / this.distance;
+    return this.pace;
+  }
+}
+
+class Cycle extends Workout {
+  constructor(coords, distance, duration, elevationGain) {
+    super(coords, distance, duration);
+    this.elevationGain = elevationGain;
+    this.calcSpeed();
+  }
+
+  calcSpeed() {
+    this.speed = this.distance / (this.duration / 60);
+    return this;
   }
 }
 
