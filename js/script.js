@@ -13,29 +13,42 @@ const inputElevation = select('.form__input--elevation');
 
 let map, mapEvent;
 
-navigator.geolocation &&
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      const { latitude, longitude } = position.coords;
+class App {
+  constructor() {}
 
-      map = L.map('map').setView([latitude, longitude], 13);
-
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.fr/hot/copyright">OpenStreetMap</a> contributors',
-      }).addTo(map);
-
-      // Handle click events on the map
-      map.on('click', (event) => {
-        mapEvent = event;
-        form.classList.remove('hidden');
-        inputDistance.focus();
+  _getPosition() {
+    navigator.geolocation &&
+      navigator.geolocation.getCurrentPosition(this._loadMap, () => {
+        console.log('There was an error.');
       });
-    },
-    () => {
-      console.log('There was an error.');
-    }
-  );
+  }
+
+  _loadMap(position) {
+    const { latitude, longitude } = position.coords;
+
+    map = L.map('map').setView([latitude, longitude], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.fr/hot/copyright">OpenStreetMap</a> contributors',
+    }).addTo(map);
+
+    // Handle click events on the map
+    this._showForm();
+  }
+
+  _showForm() {
+    map.on('click', (event) => {
+      mapEvent = event;
+      form.classList.remove('hidden');
+      inputDistance.focus();
+    });
+  }
+
+  _toggleElevationField() {}
+
+  _createNewWorkout() {}
+}
 
 // Display markers
 form.addEventListener('submit', (event) => {
