@@ -50,6 +50,9 @@ class App {
   _createNewWorkout() {}
 }
 
+const app = new App();
+app._getPosition();
+
 // Display markers
 form.addEventListener('submit', (event) => {
   event.preventDefault();
