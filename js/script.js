@@ -14,7 +14,9 @@ const inputElevation = select('.form__input--elevation');
 let map, mapEvent;
 
 class App {
-  constructor() {}
+  constructor() {
+    this._getPosition();
+  }
 
   _getPosition() {
     navigator.geolocation &&
@@ -51,7 +53,6 @@ class App {
 }
 
 const app = new App();
-app._getPosition();
 
 // Display markers
 form.addEventListener('submit', (event) => {
