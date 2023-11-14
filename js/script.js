@@ -52,6 +52,7 @@ class Cycle extends Workout {
 class App {
   #map;
   #mapEvent;
+  #workouts = [];
 
   constructor() {
     this._getPosition();
@@ -95,9 +96,56 @@ class App {
   _createNewWorkout(event) {
     event.preventDefault();
 
-    // Display markers
     const { lat, lng } = this.#mapEvent.latlng;
 
+    const allNumbers = (...inputs) => {
+      return inputs.every((input) => Number.isFinite(input));
+    };
+    const allPostives = (...inputs) => inputs.every((input) => input > 0);
+
+    // Get data from form
+    const type = inputType.value;
+    const distance = +inputDistance.value;
+    const duration = +inputDuration.value;
+
+    let workout;
+
+    // If workout is run, create running object
+    if (type === 'running') {
+      const cadence = +inputCadence.value;
+
+      // Check if data is valid
+      if (
+        !allNumbers(distance, duration, cadence) ||
+        !allPostives(distance, duration, cadence)
+      )
+        return alert('Inputs have to be positive numbers.');
+
+      // Create workout
+      workout = new Run([lat, lng], distance, duration, cadence);
+    }
+
+    // If workout is cycling, create cycling object
+    if (type === 'cycling') {
+      const elevation = +inputElevation.value;
+
+      // Check if data is valid
+      if (
+        !allNumbers(distance, duration, elevation) ||
+        !allPostives(distance, duration, elevation)
+      )
+        return alert('Inputs have to be positive numbers.');
+
+      // Create workout
+      workout = new Cycle([lat, lng], distance, duration, elevation);
+    }
+
+    // Add new object to workout array
+    this.#workouts.push(workout);
+    console.log(workout);
+    console.log(this.#workouts);
+
+    // Render workout on map as marker
     L.marker([lat, lng])
       .addTo(this.#map)
       .bindPopup(
@@ -112,7 +160,9 @@ class App {
       .setPopupContent('Workout')
       .openPopup();
 
-    // Clear input fields
+    // Render workout on the list
+
+    // Hide form and clear input fields
     inputDistance.value = '';
     inputDuration.value = '';
     inputCadence.value = '';
