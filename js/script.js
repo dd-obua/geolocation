@@ -17,8 +17,8 @@ class App {
 
   constructor() {
     this._getPosition();
-    this._toggleElevationField();
     form.addEventListener('submit', this._createNewWorkout.bind(this));
+    inputType.addEventListener('change', this._toggleElevationField);
   }
 
   _getPosition() {
@@ -50,12 +50,8 @@ class App {
 
   _toggleElevationField() {
     // Toggle cadence and elevation gain
-    inputType.addEventListener('change', () => {
-      inputElevation
-        .closest('.form__row')
-        .classList.toggle('form__row--hidden');
-      inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
-    });
+    inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
+    inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
   }
 
   _createNewWorkout(event) {
