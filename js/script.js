@@ -158,7 +158,7 @@ class App {
       // Check if data is valid
       if (
         !allNumbers(distance, duration, elevation) ||
-        !allPostives(distance, duration, elevation)
+        !allPostives(distance, duration)
       )
         return alert('Inputs have to be positive numbers.');
 
