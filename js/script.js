@@ -71,7 +71,7 @@ class App {
 
   constructor() {
     this._getPosition();
-    addEventListener('submit', this._createNewWorkout.bind(this));
+    form.addEventListener('submit', this._createNewWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
   }
 
